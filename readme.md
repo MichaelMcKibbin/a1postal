@@ -1,4 +1,4 @@
-# 🚀 PuzzlePaddy.com — Next.js SSR Web Application
+# 🚀 A1Postal.com — Next.js SSR Web Application
 
 ![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?logo=node.js&logoColor=white)
 ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
@@ -9,16 +9,16 @@
 ![Deployment](https://img.shields.io/badge/Hostinger-Automated%20Deploy-673DE6?logo=hostinger&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Active-success)
 ![Contributions welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen)
-![Issues](https://img.shields.io/github/issues/MichaelMcKibbin/puzzlepaddy)
-![Pull Requests](https://img.shields.io/github/issues-pr/MichaelMcKibbin/puzzlepaddy)
+![Issues](https://img.shields.io/github/issues/MichaelMcKibbin/a1postal)
+![Pull Requests](https://img.shields.io/github/issues-pr/MichaelMcKibbin/a1postal)
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
-![Repo Size](https://img.shields.io/github/repo-size/MichaelMcKibbin/puzzlepaddy)
-![Last Commit](https://img.shields.io/github/last-commit/MichaelMcKibbin/puzzlepaddy)
+![Repo Size](https://img.shields.io/github/repo-size/MichaelMcKibbin/a1postal)
+![Last Commit](https://img.shields.io/github/last-commit/MichaelMcKibbin/a1postal)
 ![Lines of Code](https://img.shields.io/badge/Lines%20of%20Code-10k+-blueviolet)
 
-A full-stack puzzle & games platform built with **Next.js**, **React**, **Node.js**, and **Tailwind CSS**, deployed via automated **GitHub webhook**.
+A full-stack postal services platform built with **Next.js**, **React**, **Node.js**, and **Tailwind CSS**, deployed via automated **GitHub webhook**.
 
-PuzzlePaddy is a server-side rendered Next.js application featuring interactive games and puzzles with dynamic functionality.  
+A1Postal is a server-side rendered Next.js application featuring postal services and logistics functionality.  
 
 Built with
 - Next.js (SSR)
@@ -32,21 +32,21 @@ Built with
 - GitHub Actions CI/CD
 - Hostinger automated server deployment
 
-The current version includes a number of fully functional puzzle and game pages.
+The current version includes a number of fully functional postal service pages.
 
-Live Site: https://puzzlepaddy.com/
+Live Site: https://a1postal.com/
 
 ## 🧩 Features
 ### ✔️ Current Features
 
-- 🎮 Games and puzzles implemented with React components
+- 📦 Postal services implemented with React components
 - 🎨 Tailwind-based layout and styling
 - 📱 Responsive header/navigation
 - ⚡ Server-side rendering for dynamic functionality
-- /games page with multiple mini-games
-- /puzzles page for logic puzzles and brain teasers
+- /services page with postal services
+- /tracking page for package tracking
 - /contact page with recaptcha, for user feedback
-- interactive components (word puzzles, number games, etc.)
+- interactive components (tracking, shipping calculators, etc.)
 
 ### 🚧 Planned Features
 - Improved site-wide styling and branding
@@ -65,7 +65,7 @@ Live Site: https://puzzlepaddy.com/
 
 ### 📁 Project Structure
 ```
-puzzlepaddy/
+a1postal/
 ├── components/      # Reusable UI components
 ├── pages/           # Routing (Next.js pages)
 ├── styles/          # Global + Tailwind styles
@@ -87,7 +87,7 @@ puzzlepaddy/
 
 ### 🏗 Building for Production
 
-PuzzlePaddy is deployed as a Node.js server application.
+A1Postal is deployed as a Node.js server application.
 
 - 1️⃣ Build the app
 ```npm run build```
@@ -113,18 +113,8 @@ After building, the file structure will look a little like this:
 ├ ○ /about                                  305 B        98.8 kB
 ├ ƒ /api/contact                              0 B        98.5 kB
 ├ ○ /contact                              4.87 kB         103 kB
-├ ○ /games                                  636 B        99.1 kB
-├ ○ /games/dog-rescue                     3.33 kB         102 kB
-├ ○ /games/hangman                        1.44 kB        99.9 kB
-├ ○ /games/nonogram                       1.29 kB        99.7 kB
-├ ○ /games/number-guess                   1.92 kB         100 kB
-├ ○ /games/snake                          1.59 kB         100 kB
-├ ○ /games/tictactoe                      1.73 kB         100 kB
-├ ○ /puzzles                                612 B        99.1 kB
-├ ○ /puzzles/mastermind                   1.54 kB         100 kB
-├ ○ /puzzles/mini-sudoku                  2.06 kB         101 kB
-├ ○ /puzzles/sliding-tile                 1.31 kB        99.8 kB
-└ ○ /puzzles/word-scramble                1.29 kB        99.7 kB
+├ ○ /services                               636 B        99.1 kB
+└ ○ /tracking                               1.44 kB        99.9 kB
 + First Load JS shared by all              103 kB
   ├ chunks/framework-acd67e14855de5a2.js  57.7 kB
   ├ chunks/main-c52fafc302c2483a.js         35 kB
@@ -147,8 +137,8 @@ Server includes API routes for contact form and dynamic functionality
 - Upgrade navigation component and mobile menu
 - Add colour palette + consistent brand theme
 - Add more interactive components
-- Add more games
-- Add more puzzles
+- Add more postal services
+- Add package tracking features
 - Add more pages
 - Add more styling
 - Add more accessibility features
@@ -171,4 +161,4 @@ GitHub: https://github.com/MichaelMcKibbin
 
 LinkedIn: https://www.linkedin.com/in/michaelkevinmckibbin/
 
-Website: https://puzzlepaddy.com
+Website: https://a1postal.com

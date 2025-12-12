@@ -7,8 +7,8 @@ import { useState } from "react";
 
 const navItems = [
     { href: "/", label: "Home" },
-    { href: "/games", label: "Games" },
-    { href: "/puzzles", label: "Puzzles" },
+    { href: "/services", label: "Services" },
+    { href: "/tracking", label: "Tracking" },
     { href: "/contact", label: "Contact" },
 ];
 
@@ -24,7 +24,7 @@ function Header() {
                 {/* Logo / site name */}
                 <Link href="/">
           <span className="text-2xl font-bold text-indigo-600">
-            Puzzle Paddy
+            A1 Postal
           </span>
                 </Link>
 

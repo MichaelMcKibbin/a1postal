@@ -1,4 +1,7 @@
 {
+  "name": "a1postal",
+  "version": "1.0.0",
+  "description": "A1 Postal - Next.js SSR Web Application",
   "devDependencies": {},
   "scripts": {
     "build": "next build",

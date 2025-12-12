@@ -5,16 +5,16 @@ export default function Home() {
         <div className="flex flex-col" style={{minHeight: 'calc(100vh - 80px)'}}>
             <div className="flex-grow flex flex-col items-center justify-center p-8">
                 <div className="text-center">
-                    <h1 className="text-5xl font-bold mb-6">Welcome to Puzzle Paddy</h1>
-                    <p className="text-xl text-gray-600 mb-8">Challenge your mind with interactive games and puzzles</p>
+                    <h1 className="text-5xl font-bold mb-6">Welcome to A1 Postal</h1>
+                    <p className="text-xl text-gray-600 mb-8">Your trusted partner for postal and shipping services</p>
                     <div className="flex flex-col gap-4 items-center">
-                        <Link href="/games"
+                        <Link href="/services"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors">
-                            Play a Game?
+                            Our Services
                         </Link>
-                        <Link href="/puzzles"
+                        <Link href="/tracking"
                               className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-colors">
-                            Try a puzzle?
+                            Track Package
                         </Link>
                     </div>
                 </div>
@@ -26,7 +26,7 @@ export default function Home() {
                         A Node.js server side rendered (SSR) web application built with Next.js, React, and Tailwind CSS, with automatic deployment via GitHub webhook.
                     </p>
                     <p className="text-xs text-gray-500">
-                        © {new Date().getFullYear()} PuzzlePaddy.com. • All rights reserved. • <a href="https://michaelmckibbin.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Michael McKibbin</a>
+                        © {new Date().getFullYear()} A1Postal.com. • All rights reserved. • <a href="https://michaelmckibbin.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Michael McKibbin</a>
                     </p>
                 </div>
             </footer>

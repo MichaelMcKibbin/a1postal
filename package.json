@@ -5,7 +5,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "next build",
-    "start": "next start -p $PORT",
+    "start": "node server.js",
     "dev": "next dev"
   },
   "dependencies": {

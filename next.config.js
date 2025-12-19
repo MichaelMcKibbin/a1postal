@@ -5,6 +5,7 @@ const nextConfig = {
     images: {
         unoptimized: true
     },
+    output: 'standalone',
 
     env: {
         EMAIL_HOST: process.env.EMAIL_HOST,

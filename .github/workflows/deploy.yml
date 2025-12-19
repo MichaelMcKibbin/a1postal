@@ -1,4 +1,4 @@
-name: Deploy to Hostinger
+name: Build and Test
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
     
     steps:
@@ -24,9 +24,3 @@ jobs:
     
     - name: Build application
       run: npm run build
-    
-    - name: Deploy to Hostinger
-      run: |
-        curl -X POST "${{ secrets.HOSTINGER_WEBHOOK_URL }}" \
-        -H "Content-Type: application/json" \
-        -d '{"ref": "refs/heads/main", "repository": {"name": "a1postal"}}'

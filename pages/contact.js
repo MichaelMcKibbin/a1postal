@@ -29,15 +29,19 @@ export default function Contact() {
                 body: JSON.stringify({ ...formData, recaptcha: recaptchaValue }),
             });
 
+            const result = await response.json();
+            
             if (response.ok) {
                 setStatus("✅ Message sent! We'll get back to you soon.");
                 setFormData({ name: "", email: "", message: "" });
                 recaptchaRef.current.reset();
             } else {
-                setStatus("❌ Failed to send message. Please try again.");
+                console.error('API Error:', result);
+                setStatus(`❌ Error: ${result.message || 'Failed to send message'}`);
             }
         } catch (error) {
-            setStatus("❌ Failed to send message. Please try again.");
+            console.error('Network Error:', error);
+            setStatus("❌ Network error. Please check your connection.");
         }
     }
 

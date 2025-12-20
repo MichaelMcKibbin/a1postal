@@ -2,7 +2,7 @@
 import nodemailer from "nodemailer";
 
 export default async function handler(req, res) {
-    console.log('Contact API called:', req.method);
+    console.log('Contact API called - v2:', req.method);
     
     // Debug endpoint - remove after testing
     if (req.method === 'GET') {

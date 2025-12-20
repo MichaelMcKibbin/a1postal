@@ -6,12 +6,13 @@ export default async function handler(req, res) {
     
     // Debug endpoint - remove after testing
     if (req.method === 'GET') {
-        const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY?.replace(/["']/g, '');
         return res.status(200).json({
-            hasRecaptchaSecret: !!process.env.RECAPTCHA_SECRET_KEY,
-            recaptchaSecretRaw: process.env.RECAPTCHA_SECRET_KEY,
-            recaptchaSecretCleaned: recaptchaSecret,
-            hasEmailHost: !!process.env.EMAIL_HOST
+            hasRecaptchaSecret: !!process.env.RECAPTCHA_SECRET,
+            hasRecaptchaSecretKey: !!process.env.RECAPTCHA_SECRET_KEY,
+            recaptchaSecretRaw: process.env.RECAPTCHA_SECRET,
+            recaptchaSecretKeyRaw: process.env.RECAPTCHA_SECRET_KEY,
+            hasEmailHost: !!process.env.EMAIL_HOST,
+            allEnvKeys: Object.keys(process.env).filter(key => key.includes('RECAPTCHA'))
         });
     }
     

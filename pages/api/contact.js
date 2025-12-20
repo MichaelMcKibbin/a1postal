@@ -4,6 +4,17 @@ import nodemailer from "nodemailer";
 export default async function handler(req, res) {
     console.log('Contact API called:', req.method);
     
+    // Debug endpoint - remove after testing
+    if (req.method === 'GET') {
+        const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY?.replace(/["']/g, '');
+        return res.status(200).json({
+            hasRecaptchaSecret: !!process.env.RECAPTCHA_SECRET_KEY,
+            recaptchaSecretRaw: process.env.RECAPTCHA_SECRET_KEY,
+            recaptchaSecretCleaned: recaptchaSecret,
+            hasEmailHost: !!process.env.EMAIL_HOST
+        });
+    }
+    
     if (req.method !== "POST") {
         return res.status(405).json({ message: "Method not allowed" });
     }

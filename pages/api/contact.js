@@ -30,7 +30,7 @@ export default async function handler(req, res) {
     });
 
     // Check environment variables (remove quotes if present)
-    const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY?.replace(/["']/g, '');
+    const recaptchaSecret = process.env.RECAPTCHA_SECRET?.replace(/["']/g, '') || process.env.RECAPTCHA_SECRET_KEY?.replace(/["']/g, '');
     if (!recaptchaSecret) {
         console.error('Missing RECAPTCHA_SECRET_KEY');
         return res.status(500).json({ message: "Missing RECAPTCHA_SECRET_KEY environment variable" });

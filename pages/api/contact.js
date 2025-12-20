@@ -10,19 +10,24 @@ export default async function handler(req, res) {
 
     const { name, email, message, recaptcha } = req.body;
     console.log('Form data received:', { name, email, messageLength: message?.length });
+    console.log('Environment check:', {
+        hasRecaptchaSecret: !!process.env.RECAPTCHA_SECRET_KEY,
+        recaptchaSecretLength: process.env.RECAPTCHA_SECRET_KEY?.length,
+        hasEmailHost: !!process.env.EMAIL_HOST,
+        hasEmailUser: !!process.env.EMAIL_USER,
+        hasEmailPass: !!process.env.EMAIL_PASS
+    });
 
     // Check environment variables
     if (!process.env.RECAPTCHA_SECRET_KEY) {
         console.error('Missing RECAPTCHA_SECRET_KEY');
-        return res.status(500).json({ message: "Server configuration error" });
+        return res.status(500).json({ message: "Missing RECAPTCHA_SECRET_KEY environment variable" });
     }
 
-    // Verify reCAPTCHA
+    // Verify reCAPTCHA v2
     try {
-        const verifyResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptcha}`
+        const verifyResponse = await fetch(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptcha}`, {
+            method: 'POST'
         });
         
         const verifyData = await verifyResponse.json();

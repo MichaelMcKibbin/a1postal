@@ -1,15 +1,14 @@
-// /pages/_app.js
 import "../styles/globals.css";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
 
 const navItems = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services" },
     { href: "/tracking", label: "Tracking" },
     { href: "/contact", label: "Contact" },
+    { href: "/about", label: "About" },
 ];
 
 function Header() {
@@ -21,14 +20,12 @@ function Header() {
     return (
         <header className="bg-white shadow sticky top-0 z-20">
             <nav className="container mx-auto flex items-center justify-between p-4">
-                {/* Logo / site name */}
                 <Link href="/">
-          <span className="text-2xl font-bold text-indigo-600">
-            A1 Postal
-          </span>
+                    <span className="text-2xl font-bold text-indigo-600">
+                        A1 Postal
+                    </span>
                 </Link>
 
-                {/* Horizontal nav – no bullets, no padding */}
                 <ul className="flex items-center space-x-6 list-none">
                     {navItems.map((item) => (
                         <li key={item.href}>
@@ -50,14 +47,12 @@ function Header() {
     );
 }
 
-
 export default function App({ Component, pageProps }) {
     return (
         <>
             <Head>
-                <meta httpEquiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-                <meta httpEquiv="Pragma" content="no-cache" />
-                <meta httpEquiv="Expires" content="0" />
+                <title>A1 Postal</title>
+                <meta name="description" content="A1 Postal Services" />
             </Head>
             <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 text-gray-900">
                 <Header />

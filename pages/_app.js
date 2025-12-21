@@ -21,7 +21,7 @@ function Header() {
         <header className="bg-white shadow sticky top-0 z-20">
             <nav className="container mx-auto flex items-center justify-between p-4">
                 <Link href="/">
-                    <span className="text-2xl font-bold text-indigo-600">
+                    <span className="text-2xl font-bold text-red-600">
                         A1 Postal
                     </span>
                 </Link>
@@ -31,9 +31,9 @@ function Header() {
                         <li key={item.href}>
                             <Link
                                 href={item.href}
-                                className={`inline-block px-2 py-1 text-sm font-medium transition-colors hover:text-indigo-600 hover:underline hover:underline-offset-4 ${
+                                className={`inline-block px-2 py-1 text-sm font-medium transition-colors hover:text-red-600 hover:underline hover:underline-offset-4 ${
                                     isActive(item.href)
-                                        ? "text-indigo-600 underline underline-offset-4"
+                                        ? "text-red-600 underline underline-offset-4"
                                         : "text-gray-700"
                                 }`}
                             >

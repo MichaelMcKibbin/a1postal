@@ -13,11 +13,12 @@ export default function Contact() {
     async function handleSubmit(e) {
         e.preventDefault();
         
-        const recaptchaValue = recaptchaRef.current.getValue();
-        if (!recaptchaValue) {
-            setStatus("❌ Please complete the reCAPTCHA.");
-            return;
-        }
+        // Temporarily bypass reCAPTCHA check
+        // const recaptchaValue = recaptchaRef.current.getValue();
+        // if (!recaptchaValue) {
+        //     setStatus("❌ Please complete the reCAPTCHA.");
+        //     return;
+        // }
 
         setStatus("Sending...");
 
@@ -25,7 +26,7 @@ export default function Contact() {
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, recaptcha: recaptchaValue })
+                body: JSON.stringify({ ...formData, recaptcha: 'bypassed' })
             });
 
             if (response.ok) {

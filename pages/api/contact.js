@@ -5,10 +5,22 @@ export default async function handler(req, res) {
         return res.status(405).json({ message: 'Method not allowed' });
     }
 
-    const { name, email, message } = req.body;
+    const { name, email, message, recaptcha } = req.body;
 
-    if (!name || !email || !message) {
-        return res.status(400).json({ message: 'All fields required' });
+    if (!name || !email || !message || !recaptcha) {
+        return res.status(400).json({ message: 'All fields and reCAPTCHA required' });
+    }
+
+    // Verify reCAPTCHA
+    const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptcha}`
+    });
+    
+    const recaptchaData = await recaptchaResponse.json();
+    if (!recaptchaData.success) {
+        return res.status(400).json({ message: 'reCAPTCHA verification failed' });
     }
 
     try {

@@ -12,6 +12,7 @@ export default async function handler(req, res) {
     }
 
     // Verify reCAPTCHA
+    console.log('Verifying reCAPTCHA with secret:', process.env.RECAPTCHA_SECRET_KEY ? 'SET' : 'NOT SET');
     const recaptchaResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -19,8 +20,9 @@ export default async function handler(req, res) {
     });
     
     const recaptchaData = await recaptchaResponse.json();
+    console.log('reCAPTCHA response:', recaptchaData);
     if (!recaptchaData.success) {
-        return res.status(400).json({ message: 'reCAPTCHA verification failed' });
+        return res.status(400).json({ message: 'reCAPTCHA verification failed', details: recaptchaData });
     }
 
     try {

@@ -33,10 +33,12 @@ export default function Contact() {
                 setFormData({ name: "", email: "", message: "" });
                 recaptchaRef.current.reset();
             } else {
-                setStatus("❌ Failed to send message");
+                const errorData = await response.json();
+                setStatus(`❌ Error: ${errorData.message || 'Failed to send message'}`);
             }
         } catch (error) {
-            setStatus("❌ Network error");
+            console.error('Network Error:', error);
+            setStatus(`❌ Network error: ${error.message}`);
         }
     }
 

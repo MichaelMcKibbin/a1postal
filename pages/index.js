@@ -23,7 +23,7 @@ export default function Home() {
             <footer className="bg-gray-100 border-t border-gray-200 py-6 px-8 mt-auto">
                 <div className="max-w-4xl mx-auto text-center">
                     <p className="text-sm text-gray-600 mb-2">
-                        A Node.js server side rendered (SSR) web application built with Next.js, React, and Tailwind CSS, with automatic deployment via GitHub webhook.
+                        A Node.js server side rendered (SSR) web application built with Next.js, React, and Tailwind CSS, with automated Docker deployment.
                     </p>
                     <p className="text-xs text-gray-500">
                         © {new Date().getFullYear()} A1Postal.com. • All rights reserved. • <a href="https://michaelmckibbin.com/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Michael McKibbin</a>

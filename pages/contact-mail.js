@@ -7,7 +7,9 @@ export default function Contact() {
     const recaptchaRef = useRef();
 
     // Read public flag to disable reCAPTCHA (set NEXT_PUBLIC_DISABLE_RECAPTCHA=true in env)
-    const disableRecaptcha = process.env.NEXT_PUBLIC_DISABLE_RECAPTCHA === 'true';
+    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
+    // If siteKey is missing, treat reCAPTCHA as disabled on the client to avoid widget errors
+    const disableRecaptcha = process.env.NEXT_PUBLIC_DISABLE_RECAPTCHA === 'true' || !siteKey;
 
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -101,15 +103,19 @@ export default function Contact() {
                         </div>
 
                         <div className="flex justify-center">
-                            {/* Only render the reCAPTCHA widget when not disabled */}
-                            {!disableRecaptcha && (
+                            {/* Only render the reCAPTCHA widget when not disabled and siteKey exists */}
+                            {!disableRecaptcha && siteKey && (
                                 <ReCAPTCHA
                                     ref={recaptchaRef}
-                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                    sitekey={siteKey}
                                 />
                             )}
 
-                            {disableRecaptcha && (
+                            {(!siteKey) && (
+                                <div className="text-sm text-red-600 italic">reCAPTCHA site key is missing in the environment — the widget is not rendered. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY and rebuild.</div>
+                            )}
+
+                            {(disableRecaptcha && siteKey) && (
                                 <div className="text-sm text-gray-600 italic">reCAPTCHA is temporarily disabled for troubleshooting.</div>
                             )}
                         </div>

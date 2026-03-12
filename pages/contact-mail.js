@@ -6,27 +6,36 @@ export default function Contact() {
     const [status, setStatus] = useState("");
     const recaptchaRef = useRef();
 
+    // Read public flag to disable reCAPTCHA (set NEXT_PUBLIC_DISABLE_RECAPTCHA=true in env)
+    const disableRecaptcha = process.env.NEXT_PUBLIC_DISABLE_RECAPTCHA === 'true';
+
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     }
 
     async function handleSubmit(e) {
         e.preventDefault();
-        
-        // Get reCAPTCHA token from the widget
-        const recaptchaValue = recaptchaRef.current ? recaptchaRef.current.getValue() : null;
-        if (!recaptchaValue) {
-            setStatus("❌ Please complete the reCAPTCHA.");
-            return;
+
+        // If reCAPTCHA is enabled, get token from the widget and require it
+        let recaptchaValue = null;
+        if (!disableRecaptcha) {
+            recaptchaValue = recaptchaRef.current ? recaptchaRef.current.getValue() : null;
+            if (!recaptchaValue) {
+                setStatus("❌ Please complete the reCAPTCHA.");
+                return;
+            }
         }
 
         setStatus("Sending...");
 
         try {
+            const body = { ...formData };
+            if (!disableRecaptcha) body.recaptcha = recaptchaValue;
+
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, recaptcha: recaptchaValue })
+                body: JSON.stringify(body)
             });
 
             if (response.ok) {
@@ -92,10 +101,17 @@ export default function Contact() {
                         </div>
 
                         <div className="flex justify-center">
-                            <ReCAPTCHA
-                                ref={recaptchaRef}
-                                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                            />
+                            {/* Only render the reCAPTCHA widget when not disabled */}
+                            {!disableRecaptcha && (
+                                <ReCAPTCHA
+                                    ref={recaptchaRef}
+                                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
+                                />
+                            )}
+
+                            {disableRecaptcha && (
+                                <div className="text-sm text-gray-600 italic">reCAPTCHA is temporarily disabled for troubleshooting.</div>
+                            )}
                         </div>
 
                         <button

@@ -7,27 +7,34 @@ export default async function handler(req, res) {
 
     const { name, email, message, recaptcha } = req.body;
 
-    if (!name || !email || !message || !recaptcha) {
+    // If server-side DISABLE_RECAPTCHA is enabled, skip requiring the token
+    const disableRecaptcha = process.env.DISABLE_RECAPTCHA === 'true';
+
+    if (!name || !email || !message || (!recaptcha && !disableRecaptcha)) {
         return res.status(400).json({ message: 'All fields and reCAPTCHA required' });
     }
 
-    // Verify reCAPTCHA token with Google's siteverify endpoint
-    try {
-        const verificationResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: `secret=${encodeURIComponent(process.env.RECAPTCHA_SECRET_KEY || '')}&response=${encodeURIComponent(recaptcha)}`
-        });
+    // Verify reCAPTCHA token with Google's siteverify endpoint unless disabled
+    if (!disableRecaptcha) {
+        try {
+            const verificationResponse = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: `secret=${encodeURIComponent(process.env.RECAPTCHA_SECRET_KEY || '')}&response=${encodeURIComponent(recaptcha)}`
+            });
 
-        const verificationData = await verificationResponse.json();
-        console.log('reCAPTCHA verification response:', verificationData);
+            const verificationData = await verificationResponse.json();
+            console.log('reCAPTCHA verification response:', verificationData);
 
-        if (!verificationData.success) {
-            return res.status(400).json({ message: 'reCAPTCHA verification failed', details: verificationData });
+            if (!verificationData.success) {
+                return res.status(400).json({ message: 'reCAPTCHA verification failed', details: verificationData });
+            }
+        } catch (err) {
+            console.error('reCAPTCHA verification error:', err);
+            return res.status(500).json({ message: 'reCAPTCHA verification error', details: err.message });
         }
-    } catch (err) {
-        console.error('reCAPTCHA verification error:', err);
-        return res.status(500).json({ message: 'reCAPTCHA verification error', details: err.message });
+    } else {
+        console.log('Server-side reCAPTCHA verification disabled (DISABLE_RECAPTCHA=true).');
     }
 
     try {

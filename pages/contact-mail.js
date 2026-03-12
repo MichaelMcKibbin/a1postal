@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 
 export default function Contact() {
@@ -6,10 +6,25 @@ export default function Contact() {
     const [status, setStatus] = useState("");
     const recaptchaRef = useRef();
 
-    // Read public flag to disable reCAPTCHA (set NEXT_PUBLIC_DISABLE_RECAPTCHA=true in env)
-    const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || '';
-    // If siteKey is missing, treat reCAPTCHA as disabled on the client to avoid widget errors
-    const disableRecaptcha = process.env.NEXT_PUBLIC_DISABLE_RECAPTCHA === 'true' || !siteKey;
+    // Runtime-config: fetch siteKey and public disable flag from server so Docker env changes don't require rebuild
+    const [siteKey, setSiteKey] = useState('');
+    const [clientDisableFlag, setClientDisableFlag] = useState(false);
+    const disableRecaptcha = clientDisableFlag || !siteKey;
+
+    useEffect(() => {
+        let mounted = true;
+        fetch('/api/config')
+            .then((r) => r.json())
+            .then((cfg) => {
+                if (!mounted) return;
+                setSiteKey(cfg.siteKey || '');
+                setClientDisableFlag(!!cfg.clientDisable);
+            })
+            .catch((err) => {
+                console.error('Failed to fetch runtime config:', err);
+            });
+        return () => { mounted = false; };
+    }, []);
 
     function handleChange(e) {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -111,11 +126,11 @@ export default function Contact() {
                                 />
                             )}
 
-                            {(!siteKey) && (
-                                <div className="text-sm text-red-600 italic">reCAPTCHA site key is missing in the environment — the widget is not rendered. Please set NEXT_PUBLIC_RECAPTCHA_SITE_KEY and rebuild.</div>
+                            {(!siteKey && !clientDisableFlag) && (
+                                <div className="text-sm text-red-600 italic">reCAPTCHA site key is missing in the environment — the widget is not rendered. Ensure NEXT_PUBLIC_RECAPTCHA_SITE_KEY is set in the runtime environment.</div>
                             )}
 
-                            {(disableRecaptcha && siteKey) && (
+                            {(clientDisableFlag) && (
                                 <div className="text-sm text-gray-600 italic">reCAPTCHA is temporarily disabled for troubleshooting.</div>
                             )}
                         </div>

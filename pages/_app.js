@@ -9,7 +9,6 @@ const navItems = [
     { href: "/tracking", label: "Tracking" },
     { href: "/system-info", label: "System Info" },
     { href: "/contact", label: "Contact" },
-    { href: "/contact-mail", label: "Mail" },
     { href: "/about", label: "About" },
 ];
 

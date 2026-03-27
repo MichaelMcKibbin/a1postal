@@ -25,4 +25,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: ghcr.io/michaelmckibbin/a1postal:latest
+          tags: ghcr.io/michaelmckibbin/michaelmckibbin:latest
+          
